@@ -25,23 +25,24 @@ public class Alarm : MonoBehaviour
         }
     }
     
-    public void StartVolumeUp()
+    private void InteractionWithVolume(float value)
     {
-        _audioSource.Play();
         if (_volume != null)
         {
             StopCoroutine(_volume);
         }
-        _volume = StartCoroutine(VolumeChange(_maxVolume));
+        _volume = StartCoroutine(VolumeChange(value));
+    }
+    
+    public void StartVolumeUp()
+    {
+        _audioSource.Play();
+        InteractionWithVolume(_maxVolume);
     }
 
     public void StartVolumeDown()
     {
-        if (_volume != null)
-        {
-            StopCoroutine(_volume);
-        }
-        _volume = StartCoroutine(VolumeChange(_minVolume));
+        InteractionWithVolume(_minVolume);
     }
 
 }
